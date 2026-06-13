@@ -160,3 +160,4 @@ CARNET_ANALISISA2026FINAL
 ```
 
 También puede editar el archivo `docs/uso_ia.md` para colocar sus propias palabras en la reflexión.
+Link de Render: https://envios-rapidos-gt.onrender.com
