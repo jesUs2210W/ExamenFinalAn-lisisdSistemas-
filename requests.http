@@ -1,0 +1,105 @@
+@base = http://localhost:5000
+
+### Crear cliente remitente
+POST {{base}}/api/clientes
+Content-Type: application/json
+
+{
+  "nombre": "Kevin Morales",
+  "telefono": "5555-1111",
+  "email": "kevin@example.com",
+  "direccion": "Jalapa, Guatemala",
+  "nit": "1234567-8"
+}
+
+### Crear cliente destinatario
+POST {{base}}/api/clientes
+Content-Type: application/json
+
+{
+  "nombre": "Maria Lopez",
+  "telefono": "5555-2222",
+  "email": "maria@example.com",
+  "direccion": "Ciudad de Guatemala",
+  "nit": "CF"
+}
+
+### Listar clientes
+GET {{base}}/api/clientes
+
+### Crear envio
+POST {{base}}/api/envios
+Content-Type: application/json
+
+{
+  "remitenteId": 1,
+  "destinatarioId": 2,
+  "pesoKg": 2.5,
+  "direccionOrigen": "Oficina Jalapa",
+  "direccionDestino": "Zona 1, Ciudad de Guatemala",
+  "departamentoDestino": "Guatemala",
+  "ubicacionRegistro": "Oficina Jalapa",
+  "notas": "Paquete recibido en ventanilla."
+}
+
+### Listar envios
+GET {{base}}/api/envios
+
+### Obtener envio por id
+GET {{base}}/api/envios/1
+
+### Rastrear por codigo - cambie el codigo por el generado
+GET {{base}}/api/envios/rastreo/ENV-20260613-0001
+
+### Avanzar a EnTransito
+PUT {{base}}/api/envios/1/estado
+Content-Type: application/json
+
+{
+  "nuevoEstado": "EnTransito",
+  "ubicacion": "Centro de Distribución Jalapa",
+  "notas": "Sale hacia ruta nacional."
+}
+
+### Avanzar a EnReparto
+PUT {{base}}/api/envios/1/estado
+Content-Type: application/json
+
+{
+  "nuevoEstado": "EnReparto",
+  "ubicacion": "Oficina Guatemala",
+  "notas": "Asignado a mensajero."
+}
+
+### Registrar intento fallido 1
+POST {{base}}/api/envios/1/intento-fallido
+Content-Type: application/json
+
+{
+  "ubicacion": "Zona 1 Guatemala",
+  "notas": "Cliente no contestó llamada."
+}
+
+### Registrar intento fallido 2
+POST {{base}}/api/envios/1/intento-fallido
+Content-Type: application/json
+
+{
+  "ubicacion": "Zona 1 Guatemala",
+  "notas": "Dirección cerrada."
+}
+
+### Registrar intento fallido 3 - cambia a EnDevolucion
+POST {{base}}/api/envios/1/intento-fallido
+Content-Type: application/json
+
+{
+  "ubicacion": "Zona 1 Guatemala",
+  "notas": "Tercer intento sin éxito."
+}
+
+### Historial del envio
+GET {{base}}/api/envios/1/historial
+
+### Reporte de eficiencia
+GET {{base}}/api/reportes/eficiencia
